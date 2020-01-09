@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/UI/notas/notas_view.dart';
 import 'modelos/global.dart';
 
 void main() => runApp(MyApp());
@@ -40,9 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                TabBarView(
                   children: [
-                    new Container(
-                      color: grisOscuro,
-                    ),
+                    NotasView(),
                     new Container(color: Colors.orange,),
                     new Container(
                       color: Colors.lightGreen,
@@ -62,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Text("Intray", style: tituloIntray,),
+                    Text("Notes", style: tituloIntray,),
                     Container()
                   ],
                 ),
