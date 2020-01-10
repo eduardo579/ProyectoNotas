@@ -7,4 +7,12 @@ TextStyle tituloIntray = new TextStyle(
   fontFamily: 'Avenir', 
   fontWeight: FontWeight.bold, 
   color: grisOscuro, 
-  fontSize: 50);
+  fontSize: 50
+);
+
+TextStyle tituloNotas = new TextStyle(
+  fontFamily: 'Avenir', 
+  fontWeight: FontWeight.bold, 
+  color: grisOscuro, 
+  fontSize: 30
+);
