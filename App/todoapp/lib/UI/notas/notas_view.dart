@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/modelos/clases/tareas.dart';
 import 'package:todoapp/modelos/global.dart';
 import 'package:todoapp/modelos/widgets/notesTodoWidget.dart';
 
@@ -9,10 +10,10 @@ class NotasView extends StatefulWidget {
 }
 
 class _NotasViewState extends State<NotasView> {
-  List<NotesTodo> todoItems = [];
+  List<Tareas> listaTareas = [];
   @override
   Widget build(BuildContext context) {
-    todoItems = getList();
+    listaTareas = getList();
     return Container(
       color: grisOscuro,
       child: _buildReorderableListSimple(context),
@@ -24,24 +25,31 @@ class _NotasViewState extends State<NotasView> {
     );
   }
 
-  Widget _buildListTitle(BuildContext context, NotesTodo item){
+  Widget _buildListTitle(BuildContext context, Tareas item){
     return ListTile(
-      key: Key(item.keyValue),
-      title: item,
+      key: Key(item.idTareas),
+      title: NotesTodo(
+        titulo: item.titulo,
+      ),
       );
   }
 
   Widget _buildReorderableListSimple(BuildContext context){
-    return ReorderableListView(
-      padding: EdgeInsets.only(top: 30.0),
-      children: todoItems.map((NotesTodo item) => _buildListTitle(context, item)).toList(),
-      onReorder: (oldIndex, newIndex){
-        setState(() {
-          NotesTodo item = todoItems[oldIndex];
-          todoItems.remove(item);
-          todoItems.insert(newIndex, item);
-        });
-      }
+    return Theme(
+          data: ThemeData(
+            canvasColor: grisOscuro
+          ),
+          child: ReorderableListView(
+        padding: EdgeInsets.only(top: 30.0),
+        children: listaTareas.map((Tareas item) => _buildListTitle(context, item)).toList(),
+        onReorder: (oldIndex, newIndex){
+          setState(() {
+            Tareas item = listaTareas[oldIndex];
+            listaTareas.remove(item);
+            listaTareas.insert(newIndex, item);
+          });
+        }
+      ),
     );
   }
 
@@ -51,16 +59,16 @@ class _NotasViewState extends State<NotasView> {
       {
         newIndex -= 1;
       }
-      final NotesTodo item = todoItems.removeAt(oldIndex);
-      todoItems.insert(newIndex, item);
+      final Tareas item = listaTareas.removeAt(oldIndex);
+      listaTareas.insert(newIndex, item);
     });
   }
 
-  List<Widget> getList(){
+  List<Tareas> getList(){
       for (int i = 0; i < 10; i++){
-       todoItems.add(NotesTodo(keyValue: i.toString(), titulo: "Hello"));
+       listaTareas.add(Tareas("My first todo" + i.toString(), false, i.toString()));
       }
 
-      return todoItems;
+      return listaTareas;
   }
 }
