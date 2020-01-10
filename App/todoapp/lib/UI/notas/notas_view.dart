@@ -37,7 +37,7 @@ class _NotasViewState extends State<NotasView> {
   Widget _buildReorderableListSimple(BuildContext context){
     return Theme(
           data: ThemeData(
-            canvasColor: grisOscuro
+            canvasColor: Colors.transparent
           ),
           child: ReorderableListView(
         padding: EdgeInsets.only(top: 30.0),
