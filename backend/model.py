@@ -6,9 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 ma = Marshmallow()
 db = SQLAlchemy()
 
-class User(db.Model):
+class Usuario(db.Model):
     __tablename__ = 'users'
-    __table_args__ = tuple(db.uniqueConstraint('id', 'username', name='my_2uniq'))
 
     id = db.Column(db.String(), primary_key=True, unique=True)
     api_key = db.Column(db.String())
@@ -18,7 +17,7 @@ class User(db.Model):
     emailadress = db.Column(db.String())
     username = db.Column(db.String(), unique=True)
 
-    def __init__(self, api_key, firstname, lastname, emailadress, password, username):
+    def __init__(self, id, api_key, firstname, lastname, emailadress, password, username):
         self.id = id
         self.api_key = api_key
         self.firstname = firstname
@@ -26,6 +25,7 @@ class User(db.Model):
         self.emailadress = emailadress
         self.password = password
         self.username = username
+
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -40,3 +40,8 @@ class User(db.Model):
             'password' : self.password,
             'emailadress' : self.emailadress,
         }
+
+    
+    def get(self):
+        return {"message": "Hola mundo!"}
+        
