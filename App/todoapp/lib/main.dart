@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/UI/login/pantallaLogin.dart';
 import 'package:todoapp/UI/notas/notas_view.dart';
 import 'modelos/global.dart';
 
@@ -9,12 +10,29 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Notes',
       theme: ThemeData(
         
         primarySwatch: Colors.grey,
       ),
-      home: MyHomePage(title: 'Notes'),
+      home: FutureBuilder(
+        future: ,
+        builder: (BuildContext context, AsyncSnapshot<String> snapshot){
+          switch (snapshot.connectionState){
+            case ConnectionState.none:
+              return Text('Press button to start.');
+            case ConnectionState.active:
+            case ConnectionState.waiting:
+              return Text('Awaiting result...');
+            case ConnectionState.done:
+              if (snapshot.hasError):
+                return Text('Error: ${snapshot.error}');
+              return Text('Result: ${snapshot.data}');
+          }
+          return null;
+        },
+      ),
     );
   }
 }

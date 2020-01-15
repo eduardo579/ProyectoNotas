@@ -1,6 +1,8 @@
 from flask_restful import Resource
 from flask import request
 from model import db, Usuario
+import random
+import string
 
 class Registro(Resource):
     def get(self):
@@ -31,13 +33,20 @@ class Registro(Resource):
         user = Usuario.query.filter_by(emailadress=json_data['emailadress']).first()
         if user:
             return {'message': 'User with the same email already exists'}, 400
+        
+        api_key = self.generate_key()
+
+        user = Usuario.query.filter_by(api_key=api_key).first()
+        if user:
+            return {'message': 'API key already exists'}, 400
 
         user = Usuario(
+            api_key = api_key,
             firstname = json_data["firstname"], 
             lastname = json_data["lastname"],
             email = json_data["emailadress"],
             password = json_data["password"], 
-            username = json_data["username"]
+            username = json_data["username"],
         )
         db.session.add(user)
         db.session.commit()
@@ -45,3 +54,6 @@ class Registro(Resource):
         result = Usuario.serialize(user)
 
         return { "status": 'success', 'data': result }, 201
+
+    def generate_key(self):
+        return ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(50))
