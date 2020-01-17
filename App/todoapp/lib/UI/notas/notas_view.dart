@@ -40,7 +40,7 @@ class _NotasViewState extends State<NotasView> {
             canvasColor: Colors.transparent
           ),
           child: ReorderableListView(
-        padding: EdgeInsets.only(top: 30.0),
+        padding: EdgeInsets.only(top: 250.0),
         children: listaTareas.map((Tareas item) => _buildListTitle(context, item)).toList(),
         onReorder: (oldIndex, newIndex){
           setState(() {
@@ -66,7 +66,7 @@ class _NotasViewState extends State<NotasView> {
 
   List<Tareas> getList(){
       for (int i = 0; i < 10; i++){
-       listaTareas.add(Tareas("My first todo" + i.toString(), false, i.toString()));
+       listaTareas.add(Tareas("My first todo " + i.toString(), false, i.toString()));
       }
 
       return listaTareas;

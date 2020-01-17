@@ -17,15 +17,13 @@ class Usuario(db.Model):
     emailadress = db.Column(db.String())
     username = db.Column(db.String(), unique=True)
 
-    def __init__(self, id, api_key, firstname, lastname, emailadress, password, username):
-        self.id = id
-        self.api_key = api_key
+    def __init__(self, api_key, firstname, lastname, emailadress, password, username):
         self.firstname = firstname
         self.lastname = lastname
         self.emailadress = emailadress
         self.password = password
         self.username = username
-
+        self.api_key = api_key
 
     def __repr__(self):
         return '<id {}>'.format(self.id)
@@ -41,7 +39,6 @@ class Usuario(db.Model):
             'emailadress' : self.emailadress,
         }
 
-    
     def get(self):
         return {"message": "Hola mundo!"}
         

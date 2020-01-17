@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/UI/login/pantallaLogin.dart';
 import 'package:todoapp/UI/notas/notas_view.dart';
 import 'modelos/global.dart';
+import 'package:http/http.dart' as http;
+import 'package:todoapp/modelos/clases/usuario.dart';
+import 'package:todoapp/bloc/blocs/user_bloc_provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,23 +20,7 @@ class MyApp extends StatelessWidget {
         
         primarySwatch: Colors.grey,
       ),
-      home: FutureBuilder(
-        future: ,
-        builder: (BuildContext context, AsyncSnapshot<String> snapshot){
-          switch (snapshot.connectionState){
-            case ConnectionState.none:
-              return Text('Press button to start.');
-            case ConnectionState.active:
-            case ConnectionState.waiting:
-              return Text('Awaiting result...');
-            case ConnectionState.done:
-              if (snapshot.hasError):
-                return Text('Error: ${snapshot.error}');
-              return Text('Result: ${snapshot.data}');
-          }
-          return null;
-        },
-      ),
+      home: MyHomePage()
     );
   }
 }
@@ -48,7 +36,37 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: getApiKey(),
+        builder: (BuildContext context, AsyncSnapshot snapshot){
+          String apiKey = "";
 
+          if (snapshot.hasData){
+            apiKey = snapshot.data;
+          }
+
+          else{
+            print("No data");
+          }
+          // apiKey.length > 0 ? getHomePage() : LoginPage();
+          return apiKey.length > 0 ? getHomePage() : LoginPage(login, login: false,);
+        },
+        );
+  }
+
+  void login(){
+    setState(() {
+      build(context);
+    });
+  }
+
+  Future getApiKey() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print(prefs);
+    return await prefs.getString("API_Token");
+  }
+
+  Widget getHomePage() {
     return MaterialApp(
         color: Colors.yellow,
         home: SafeArea(
@@ -60,8 +78,19 @@ class _MyHomePageState extends State<MyHomePage> {
                TabBarView(
                   children: [
                     NotasView(),
-                    new Container(color: Colors.orange,),
                     new Container(
+                      color: Colors.orange,
+                      ),
+                    new Container(
+                      child: Center(
+                        child: FlatButton(
+                          color: rojo,
+                          child: Text("Logout"),
+                          onPressed: (){
+                            logout();
+                          },
+                        ),
+                      ),
                       color: Colors.lightGreen,
                     ),
                   ],
@@ -122,5 +151,18 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       )
     );
+  }
+
+  logout() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("API_Token", "");
+
+    setState(() {
+      build(context);
+    });
+  }
+  @override
+  void initState(){
+    super.initState();
   }
 }

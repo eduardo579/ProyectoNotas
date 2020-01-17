@@ -21,10 +21,10 @@ class Registro(Resource):
         if not json_data:
                return {'message': 'No input data provided'}, 400
 
-        data, errors = Usuario.load(json_data)
+        # data, errors = Usuario.load(json_data)
 
-        if errors:
-            return errors, 422
+        # if errors:
+        #     return errors, 422
 
         user = Usuario.query.filter_by(username=json_data['username']).first()
         if user:
@@ -44,7 +44,7 @@ class Registro(Resource):
             api_key = api_key,
             firstname = json_data["firstname"], 
             lastname = json_data["lastname"],
-            email = json_data["emailadress"],
+            emailadress = json_data["emailadress"],
             password = json_data["password"], 
             username = json_data["username"],
         )
