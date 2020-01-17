@@ -92,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Text("Sign in", style: tituloRojoNotas,),
             onPressed: (){
                 if (userText.text != null || passText.text != null){
-                  bloc.signInUser(userText.text, passText.text).then(() {
+                  bloc.signInUser(userText.text, passText.text, "").then((_) {
                     widget.login();
                   });
                 }
@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: Text("Create account", style: textoRojoBoldNotas,),
                   onPressed: (){
                     if (userText.text != null || passText.text != null){
-                      widget.login()
+                      widget.login();
                     }
                   },
                 )
