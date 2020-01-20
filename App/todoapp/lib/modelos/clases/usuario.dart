@@ -17,9 +17,9 @@ class Usuario {
       parsedJson['lastname'], 
       parsedJson['firstname'], 
       parsedJson['emailadress'], 
-      parsedJson['password'], 
-      parsedJson['api_key'], 
-      parsedJson['id']
+      parsedJson['password'],
+      parsedJson['id'],
+      parsedJson['api_key']
     );
   }
 }
