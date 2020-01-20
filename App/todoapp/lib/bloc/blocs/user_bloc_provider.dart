@@ -43,7 +43,7 @@ class TaskBloc{
 
 
    Future<Null> _updateTasks(String apiKey) async {
-    _tasks = await _repository.getUserTasks(apiKey);
+     _tasks = await _repository.getUserTasks(apiKey);
   }
 }
 

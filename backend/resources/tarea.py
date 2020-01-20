@@ -16,9 +16,9 @@ class Tasks(Resource):
             user = Usuario.query.filter_by(api_key=header).first()
 
             if user:
-            
                 task = Tarea(
                     user_id = user.id,
+                    title = json_data["title"],
                     note = json_data["note"], 
                     completed = json_data["completed"],
                     repeats = json_data["repeats"],
