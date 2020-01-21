@@ -25,6 +25,20 @@ TextStyle tituloNotas = new TextStyle(
   fontSize: 30
 );
 
+TextStyle tituloNotasBlanco = new TextStyle(
+  fontFamily: 'Avenir', 
+  fontWeight: FontWeight.bold, 
+  color: Colors.white, 
+  fontSize: 20
+);
+
+TextStyle tituloBlancoBoton = new TextStyle(
+  fontFamily: 'Avenir', 
+  fontWeight: FontWeight.bold, 
+  color: Colors.white, 
+  fontSize: 15
+);
+
 TextStyle tituloRojoNotas = new TextStyle(
   fontFamily: 'Avenir', 
   fontWeight: FontWeight.bold, 

@@ -41,7 +41,6 @@ class TaskBloc{
 
   Stream<List<Tareas>> get getTareas => _taskSubject.stream;
 
-
    Future<Null> _updateTasks(String apiKey) async {
      _tasks = await _repository.getUserTasks(apiKey);
   }
